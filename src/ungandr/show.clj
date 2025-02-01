@@ -1,0 +1,45 @@
+(ns ungandr.show)
+
+(defn materialize-ungandr [worm]
+  (loop [step (dec (count worm))
+         worm worm
+         ugandr {}]
+    (if (<= 0 step)
+      (let [curr (str (last worm) (apply str (butlast worm)))]
+        (recur (dec step) curr (assoc ugandr step curr)))
+      ugandr)))
+
+(def ungandr (materialize-ungandr ".·°˚°·._"))
+(defn the-wyrm [tick]
+  (ungandr (mod tick (count ungandr))))
+
+#_".·°˚°·._"
+#_".·'°·.˛¸"
+
+(defn the-border [tick]
+  (apply str (repeat 16 (if (= 0 (mod tick 2))
+                          "=-"
+                          "-="))))
+
+(def wall-types {:wall "[]"
+                 :reinforced "()"
+                 :encased "{|}"})
+
+(defn render-dist-ahead [s dist]
+  (apply str (repeat (- dist (count s)) \space)))
+
+(defn render-walls [walls]
+  (-> (fn [s [tpe dist]]
+        (str s
+             (render-dist-ahead s dist)
+             (get wall-types tpe)))
+      (reduce "" walls)))
+
+(defn walls? [game-state]
+  (< 0 (-> game-state :walls count)))
+
+(defn generate-line [tick game-state]
+  (str (the-wyrm tick)
+       (when (walls? game-state)
+         (render-walls (:walls game-state))))
+  #_(subs s 0 (min 32 (count s))))
