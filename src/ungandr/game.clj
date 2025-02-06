@@ -7,9 +7,17 @@
    [ungandr.sh :as sh]
    [ungandr.show :as show]))
 
+(def dev? (atom true))
+(def prev-key (atom nil))
+
 (def store (atom {:walls [[:wall (- 32 8 1)]]}))
 (def key-pressed (atom nil))
 (def reading? true)
+
+(defn print-dev-info! []
+  (sh/pl (sh/colorize @store :fg/yellow))
+  (let [k @prev-key]
+    (sh/pl (str "Previous input: " k " " (some-> k char)))))
 
 (defn update-game-state! [new-state]
   (reset! store new-state))
@@ -26,7 +34,8 @@
       (while reading?
         (let [key (sh/read-key)]
           (when (not= key -1)
-            (reset! key-pressed key))))
+            (reset! key-pressed key)
+            (reset! prev-key key))))
       (catch Exception e
         (prn e)))))
 
@@ -39,6 +48,7 @@
       (sh/pl (show/generate-line tick game-state))
       (sh/pl (show/the-border tick))
       (sh/pl)
+      (when @dev? (print-dev-info!))
       (sh/make-it-so)
       (Thread/sleep 50)
       (when-let [key (get-key! \$)]
@@ -51,6 +61,9 @@
                          (-> game-state op/destroy op/move-enemies update-game-state!)
                          (recur (inc tick)))
 
+          ::op/toggle-dev (do
+                            (reset! dev? (not @dev?))
+                            (recur (inc tick)))
           ::op/quit nil)                   ; end loop
         ))))
 

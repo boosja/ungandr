@@ -5,6 +5,7 @@
   {\$ ::cmd-not-found
    \space ::destroy
 
+   \. ::toggle-dev
    \q ::quit
    \ ::quit})
 
