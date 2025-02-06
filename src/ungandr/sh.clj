@@ -20,6 +20,33 @@
 (defn read-line-by-line! []
   (process/shell "stty icanon echo"))
 
+(def default-ctrls {"discard" \
+                    "dsusp" \
+                    "eof" \
+                    "intr" \
+                    "kill" \
+                    "lnext" \
+                    "reprint" \
+                    "start" \
+                    "status" \
+                    "stop" \
+                    "susp" \
+                    "werase" \})
+
+(defn relinquish-powers-to-thou!
+  "Restores the default ctrl bindings of the terminal"
+  []
+  (process/shell
+   (str "stty" (apply str (map (fn [[ctrl binding]] (str " " ctrl " '" binding "'"))
+                                default-ctrls)))))
+
+(defn take-control-over-powers-of-thee!
+  "Disables default terminal ctrl binding behavior"
+  []
+  (process/shell
+   (str "stty" (apply str (map (fn [[ctrl]] (str " " ctrl " ''"))
+                               default-ctrls)))))
+
 ;;
 
 (defn to-beyond-the-ether []

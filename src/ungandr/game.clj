@@ -70,6 +70,7 @@
 (defn provoke-ungandr [_opts]
   (try
     (sh/read-char-by-char!)
+    (sh/take-control-over-powers-of-thee!)
     (sh/to-beyond-the-ether)
     (sh/shine-that-thang)
     (start-listening-fo-the-key-pressers)
@@ -79,6 +80,7 @@
       (sh/back-to-reality)
       (sh/pl e))
     (finally
+      (sh/relinquish-powers-to-thou!)
       (sh/read-line-by-line!))))
 
 (def dispatch-table
