@@ -1,17 +1,4 @@
 #!/usr/bin/env bb
-;; ================================
-;; _.·°˚°·._ [] (-)   {{#=-}}
-;; ================================
-;; Game loop
-;; Receive user input
-;; Move blockades
-;; Maybe animate player?
-;; Speed
-;; Crash into blockade, then what?
-;; End game / end screen?
-;; Design blockades |[({#=-
-;; Design keybindings / attacks
-;; Move the borders left (differentiate symbols or space between)
 
 (ns ungandr.game
   (:require
@@ -66,7 +53,6 @@
 
           ::op/quit nil)                   ; end loop
         ))))
-
 
 (defn provoke-ungandr [_opts]
   (try

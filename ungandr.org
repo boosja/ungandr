@@ -1,0 +1,29 @@
+#+TITLE: Ungandr
+
+: ================================
+: .·°˚°·._ [] (-)   {{#=-}}
+: ================================
+
+*** DONE Game loop
+*** DONE Receive user input
+*** DONE Move blockades
+*** DONE Maybe animate player?
+*** TODO Speed
+*** TODO Crash into blockade, then what?
+*** TODO End game / end screen?
+*** TODO Design blockades |[({#=-
+*** TODO Design keybindings / attacks
+*** DONE Move the borders left (differentiate symbols or space between)
+*** TODO Mechanics: ctrl - do, shift - move, opt - 🕺
+*** TODO Different modes/lvls
+  : ================================
+  :                   {}
+  : .·°˚°·._          []
+  :                   ()
+  : ================================
+*** TODO Larger design?
+  : ================================
+  :      .·o/__
+  :    .oO#%\
+  : .oO0°¯
+  : ================================
