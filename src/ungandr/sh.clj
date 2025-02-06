@@ -30,3 +30,25 @@
 
 (defn shine-that-thang []
   (p "\033[H\033[2J"))
+
+(def styles {:bold "1"
+             :underline "4"
+             :fg/black "30"
+             :fg/red "31"
+             :fg/green "32"
+             :fg/yellow "33"
+             :fg/blue "34"
+             :fg/magenta "35"
+             :fg/cyan "36"
+             :fg/white "37"
+             :bg/black "40"
+             :bg/red "41"
+             :bg/green "42"
+             :bg/yellow "43"
+             :bg/blue "44"
+             :bg/magenta "45"
+             :bg/cyan "46"
+             :bg/white "47"})
+
+(defn colorize [s c]
+  (str "\033[" (get styles c) "m" s "\033[0m"))
