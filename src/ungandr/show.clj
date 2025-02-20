@@ -1,4 +1,5 @@
-(ns ungandr.show)
+(ns ungandr.show
+  (:require [ungandr.sh :as sh]))
 
 (defn materialize-ungandr [worm]
   (loop [step (dec (count worm))
@@ -10,8 +11,20 @@
       ugandr)))
 
 (def ungandr (materialize-ungandr ".·°˚°·._"))
-(defn the-wyrm [tick]
-  (ungandr (mod tick (count ungandr))))
+
+(defn glorify [ungandr shiners]
+  (let [length (-> ungandr count dec)]
+    (apply str (map-indexed (fn [i ch]
+                              (if-let [shine (nth shiners (- length i) false)]
+                                (sh/colorize ch shine)
+                                ch))
+                            ungandr))))
+
+(defn the-wyrm [tick game-state]
+  (let [gandr (ungandr (mod tick (count ungandr)))]
+    (if (:ungandr/shiners game-state)
+      (glorify gandr (:ungandr/shiners game-state))
+      gandr)))
 
 #_".·°˚°·._"
 #_".·'°·.˛¸"
@@ -39,7 +52,7 @@
   (< 0 (-> game-state :walls count)))
 
 (defn generate-line [tick game-state]
-  (str (the-wyrm tick)
+  (str (the-wyrm tick game-state)
        (when (walls? game-state)
          (render-walls (:walls game-state))))
   #_(subs s 0 (min 32 (count s))))

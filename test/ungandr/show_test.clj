@@ -18,6 +18,11 @@
                (get 5))
            "·._.·°˚°"))))
 
+(deftest glorify-test
+  (testing "Returns ungandr with glory"
+    (is (= (show/glorify ".·°˚°·._" [:fg/red])
+           ".·°˚°·.\033[31m_\033[0m"))))
+
 (deftest render-walls-test
   (is (= (show/render-walls [[:wall 23]])
          "                       []"))
