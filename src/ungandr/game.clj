@@ -57,6 +57,10 @@
                                (-> game-state op/move-enemies update-game-state!)
                                (recur (inc tick)))
 
+          ::op/power (do
+                       (-> game-state op/power op/move-enemies update-game-state!)
+                       (recur (inc tick)))
+
           ::op/destroy (do
                          (-> game-state op/destroy op/move-enemies update-game-state!)
                          (recur (inc tick)))
