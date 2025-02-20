@@ -20,6 +20,12 @@
 (defn read-line-by-line! []
   (process/shell "stty icanon echo"))
 
+(defn hide-cursor! []
+  (process/shell "tput civis"))
+
+(defn show-cursor! []
+  (process/shell "tput cnorm"))
+
 (def default-ctrls {"discard" \
                     "dsusp" \
                     "eof" \

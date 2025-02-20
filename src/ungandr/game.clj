@@ -74,6 +74,7 @@
 (defn provoke-ungandr [_opts]
   (try
     (sh/read-char-by-char!)
+    (sh/hide-cursor!)
     (sh/take-control-over-powers-of-thee!)
     (sh/to-beyond-the-ether)
     (sh/shine-that-thang)
@@ -85,6 +86,7 @@
       (sh/pl e))
     (finally
       (sh/relinquish-powers-to-thou!)
+      (sh/show-cursor!)
       (sh/read-line-by-line!))))
 
 (def dispatch-table
