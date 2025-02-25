@@ -83,5 +83,7 @@
              :bg/cyan "46"
              :bg/white "47"})
 
-(defn colorize [s c]
-  (str "\033[" (get styles c) "m" s "\033[0m"))
+(defn colorize [s colors]
+  (let [cs (if (vector? colors) colors [colors])]
+    (str (apply str (map #(str "\033[" (get styles %) "m") cs))
+         s "\033[0m")))

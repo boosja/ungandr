@@ -9,4 +9,8 @@
 
   (testing "Returns string when input is char"
     (is (= (sh/colorize \c :fg/red)
-           "\033[31mc\033[0m"))))
+           "\033[31mc\033[0m")))
+
+  (testing "Applies all styles when passing in vector"
+    (is (= (sh/colorize "Yellow bg with black text" [:fg/black :bg/yellow])
+           "\033[30m\033[43mYellow bg with black text\033[0m"))))
