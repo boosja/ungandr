@@ -5,7 +5,8 @@
    [babashka.cli :as cli]
    [ungandr.op :as op]
    [ungandr.sh :as sh]
-   [ungandr.show :as show]))
+   [ungandr.show :as show]
+   [ungandr.stringer :refer [strr pad-end]]))
 
 (def dev? (atom true))
 (def prev-key (atom nil))
@@ -15,9 +16,13 @@
 (def reading? true)
 
 (defn print-dev-info! []
-  (sh/pl (sh/colorize @store :fg/yellow))
+  (sh/pl (sh/colorize
+          (pad-end (strr @store) 64)
+          [:fg/black :bg/yellow]))
   (let [k @prev-key]
-    (sh/pl (str "Previous input: " k " " (some-> k char)))))
+    (sh/pl (sh/colorize
+            (pad-end (str "Previous input: " k " " (some-> k char)) 64)
+            [:fg/black :bg/yellow]))))
 
 (defn update-game-state! [new-state]
   (reset! store new-state))
