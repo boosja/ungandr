@@ -6,7 +6,7 @@
    [ungandr.op :as op]
    [ungandr.sh :as sh]
    [ungandr.show :as show]
-   [ungandr.stringer :refer [strr pad-end]]))
+   [ungandr.stringer :refer [strr pad-end get-frame]]))
 
 (def dev? (atom true))
 (def prev-key (atom nil))
@@ -15,14 +15,14 @@
 (def key-pressed (atom nil))
 (def reading? true)
 
-(defn print-dev-info! []
-  (sh/pl (sh/colorize
-          (pad-end (strr @store) 64)
-          [:fg/black :bg/yellow]))
-  (let [k @prev-key]
-    (sh/pl (sh/colorize
-            (pad-end (str "Previous input: " k " " (some-> k char)) 64)
-            [:fg/black :bg/yellow]))))
+(defn get-dev-info! []
+  (let [k @prev-key
+        state (strr @store)
+        previous-input (str "Previous input: " k " " (some-> k char))]
+    (-> #(pad-end % 64)
+        (mapv [state previous-input])
+        get-frame
+        (sh/colorize [:fg/black :bg/yellow]))))
 
 (defn update-game-state! [new-state]
   (reset! store new-state))
@@ -48,12 +48,15 @@
   (loop [tick 0]
     (let [game-state @store]
       (sh/shine-that-thang)
-      (sh/pl "(s)tart (q)uit\n")
-      (sh/pl (show/the-border tick))
-      (sh/pl (show/generate-line tick game-state))
-      (sh/pl (show/the-border tick))
-      (sh/pl)
-      (when @dev? (print-dev-info!))
+      (->> [""
+            "(s)tart (q)uit\n"
+            (show/the-border tick)
+            (show/generate-line tick game-state)
+            (show/the-border tick)
+            ""]
+           get-frame
+           sh/pl)
+      (when @dev? (sh/pl (get-dev-info!)))
       (sh/make-it-so)
       (Thread/sleep 50)
       (when-let [key (get-key! \$)]
