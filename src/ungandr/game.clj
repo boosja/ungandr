@@ -59,24 +59,17 @@
       (sh/make-it-so)
       (Thread/sleep 50)
       (when-let [key (get-key! \$)]
-        (case (get op/keymap (char key) ::op/cmd-not-found)
-          ::op/cmd-not-found (do
-                               (-> game-state op/move-enemies update-game-state!)
-                               (recur (inc tick)))
-
-          ::op/power (do
-                       (-> game-state op/power op/move-enemies update-game-state!)
-                       (recur (inc tick)))
-
-          ::op/destroy (do
-                         (-> game-state op/destroy op/move-enemies update-game-state!)
-                         (recur (inc tick)))
-
-          ::op/toggle-dev (do
-                            (reset! dev? (not @dev?))
-                            (recur (inc tick)))
-          ::op/quit nil)                   ; end loop
-        ))))
+        (when-let [newstate (case (get op/keymap (char key) ::op/cmd-not-found)
+                            ::op/cmd-not-found game-state
+                            ::op/power (-> game-state op/power)
+                            ::op/destroy (-> game-state op/destroy)
+                            ::op/toggle-dev (do (reset! dev? (not @dev?))
+                                                game-state)
+                            ::op/quit nil)]
+          (-> newstate
+              op/move-enemies
+              update-game-state!)
+          (recur (inc tick)))))))
 
 (defn provoke-ungandr [_opts]
   (try
