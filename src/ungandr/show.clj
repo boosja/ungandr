@@ -30,9 +30,9 @@
 #_".·'°·.˛¸"
 
 (defn the-border [tick]
-  (apply str (repeat 16 (if (= 0 (mod tick 2))
-                          "=-"
-                          "-="))))
+  (apply str (take 45 (cycle (if (= 0 (mod tick 2))
+                               ["=" "-"]
+                               ["-" "="])))))
 
 (def wall-types {:wall "[]"
                  :reinforced "()"
@@ -54,5 +54,4 @@
 (defn generate-line [tick game-state]
   (str (the-wyrm tick game-state)
        (when (walls? game-state)
-         (render-walls (:walls game-state))))
-  #_(subs s 0 (min 32 (count s))))
+         (render-walls (:walls game-state)))))

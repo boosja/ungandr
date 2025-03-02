@@ -10,7 +10,7 @@
 (def dev? (atom true))
 (def prev-key (atom nil))
 
-(def store (atom {:walls [[:wall (- 32 8 1)]]}))
+(def store (atom {:walls [[:wall (- 45 8 1)]]}))
 (def key-pressed (atom nil))
 (def reading? true)
 
@@ -47,8 +47,15 @@
   (loop [tick 0]
     (let [game-state @store]
       (sh/shine-that-thang)
-      (->> [""
-            "(s)tart (q)uit\n"
+      (->> [
+            "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+            "   ·..·°˚  ·..·°˚  Ungandr  ˚°·..·  ˚°·..·   "
+            "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+            ""
+            ""
+            ""
+            ""
+            ""
             (show/the-border tick)
             (show/generate-line tick game-state)
             (show/the-border tick)

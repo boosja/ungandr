@@ -12,6 +12,65 @@
 
 (defn get-frame [lines]
   (->> lines
-       (map #(pad-start % 2))
+       (map #(pad-start % 1))
        (clojure.string/join "\n")))
 
+(comment
+
+  ["=-=-=-=-=-="
+   "snake   [] "
+   "=-=-=-=-=-="]
+
+  "ungandr"
+  (ungandr.sh/pl
+   (clojure.string/join "\n"
+                        ["                 _________                  "
+                         " .·°˚°·..·°˚°*·./ ungandr \\.·*°˚°·..·°˚°·. "
+                         "/                                         \\"
+                         " \\                                       /"
+                         "/                                         \\"
+                         " \\                                       /"
+                         "/                                         \\"
+                         " \\                                       /"
+                         "/                                         \\"
+                         " \\                                       /"
+                         "/                                         \\"
+                         " \\                                       /"
+                         "  ˚°·..·°˚°·..·°˚°*·._.·*°˚°·..·°˚°·..·°˚  "]))
+  (ungandr.sh/pl
+   (clojure.string/join "\n"
+                        ["=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                         "   ·..·°˚  ·..·°˚  Ungandr  ˚°·..·  ˚°·..·   "
+                         "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                         "                                             "
+                         "               Brr, crash, boom!             "
+                         "          They have interrupted your         "
+                         "        thousand year incubation period.     "
+                         "          You're groggy. You're mad.         "
+                         "               You are FURIOUS!              "
+                         "       Red hot anger boils up from within.   "
+                         "            You. Want. To. DESTROY!          "
+                         "                                             "
+                         "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                         ".·°˚°·._             []          {}          "
+                         "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="]))
+  (ungandr.sh/pl
+   (clojure.string/join "\n"
+                        ["=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                         "|  ·..·°˚  ·..·°˚  Ungandr  ˚°·..·  ˚°·..·  |"
+                         "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                         "|                                           |"
+                         "|              Brr, crash, boom!            |"
+                         "|         They have interrupted your        |"
+                         "|       thousand year incubation period.    |"
+                         "|         You're groggy. You're mad.        |"
+                         "|              You are FURIOUS!             |"
+                         "|      Red hot anger boils up from within.  |"
+                         "|           You. Want. To. DESTROY!         |"
+                         "|                                           |"
+                         "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                         ".·°˚°·._             []          {}          "
+                         "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="]))
+  (ungandr.sh/pl)
+
+  :rfc)
