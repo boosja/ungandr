@@ -1,12 +1,11 @@
 #!/usr/bin/env bb
 
 (ns ungandr.game
-  (:require
-   [babashka.cli :as cli]
-   [ungandr.op :as op]
-   [ungandr.sh :as sh]
-   [ungandr.show :as show]
-   [ungandr.stringer :refer [strr pad-end get-frame]]))
+  (:require [babashka.cli :as cli]
+            [ungandr.op :as op]
+            [ungandr.sh :as sh]
+            [ungandr.show :as show]
+            [ungandr.stringer :refer [strr pad-end get-frame]]))
 
 (def dev? (atom true))
 (def prev-key (atom nil))
@@ -19,10 +18,10 @@
   (let [k @prev-key
         state (strr @store)
         previous-input (str "Previous input: " k " " (some-> k char))]
-    (-> #(pad-end % 64)
-        (mapv [state previous-input])
-        get-frame
-        (sh/colorize [:fg/black :bg/yellow]))))
+    (sh/colorize
+     (get-frame
+      (mapv #(pad-end % 64) [state previous-input]))
+     [:fg/black :bg/yellow])))
 
 (defn update-game-state! [new-state]
   (reset! store new-state))
