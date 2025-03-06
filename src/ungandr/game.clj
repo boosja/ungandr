@@ -7,7 +7,7 @@
             [ungandr.show :as show]
             [ungandr.stringer :refer [strr pad-end get-frame]]))
 
-(def dev? (atom true))
+(def dev? (atom false))
 (def prev-key (atom nil))
 
 (def store (atom {:walls [[:wall (- 45 8 1)]]}))
